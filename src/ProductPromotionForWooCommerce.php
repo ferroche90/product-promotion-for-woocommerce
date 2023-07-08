@@ -151,11 +151,9 @@ class ProductPromotionForWooCommerce {
         $product_id = get_option( 'promoted_product' );    
         $product = wc_get_product( $product_id );
         $promote_product = get_post_meta( $product_id, '_promote_product', true );
-        $set_expiration = get_post_meta( $product_id, '_set_expiration', true );
-        $expiration_date = get_post_meta( $product_id, '_expiration_date', true );
     
         // Check if the product is marked for promotion and (the expiration date is not set or is not outdated)
-        if ( $promote_product === 'yes' && ($set_expiration !== 'yes' || strtotime($expiration_date) > time()) ) {
+        if ( $promote_product === 'yes' ) {
             $edit_link = get_edit_post_link( $product_id );
     
             return sprintf(
@@ -180,7 +178,7 @@ class ProductPromotionForWooCommerce {
         $promote_product = get_post_meta($product_id, '_promote_product', true);
         $text_color = get_option('promoted_product_text_color');
         $bg_color = get_option('promoted_product_bg_color');
-        $expiration_date = get_post_meta($product_id, '_expiration_date', true);
+        $expiration_date = get_post_meta($product_id, '_expiration_datetime', true);
         $current_time = time();
 
         if ($product && $promoted_product_title && $promote_product === 'yes' && strtotime($expiration_date) > $current_time) {
@@ -216,6 +214,5 @@ class ProductPromotionForWooCommerce {
             </script>
             <?php
         }
-    }
-    
+    } 
 }

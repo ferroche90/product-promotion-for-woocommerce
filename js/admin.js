@@ -1,23 +1,28 @@
 jQuery(document).ready(function($) {
-    // Show date picker on checkbox checked
+    // Show datetime picker on checkbox checked
     $('input#_set_expiration').change(function() {
-        if($(this).is(":checked")) {
-            $('p._expiration_date_field').show();
+        if ($(this).is(":checked")) {
+            $('input#_expiration_datetime').prop('disabled', false);
+            $('p._expiration_datetime_field').show();
         } else {
-            $('p._expiration_date_field').hide();
+            $('input#_expiration_datetime').prop('disabled', true);
+            var today = new Date();
+            var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+            var time = '23:59';
+            var dateTime = date+'T'+time;
+            $('input#_expiration_datetime').val(dateTime);
+            $('p._expiration_datetime_field').hide();
         }
-    }).change();
+    }).change(); // Trigger change event to set initial state
 
     // Make adding an expiration date mandatory if checkbox is checked
     $('form#post').on('submit', function(e) {
-        var setExpirationChecked = $('#_set_expiration').is(':checked');
-        var expirationDateEmpty = !$('#_expiration_date').val();
+        var setExpirationChecked = $('.expiration-checkbox').is(':checked');
+        var expirationDatetimeEmpty = !$('.expiration-date').val();
 
-        if (setExpirationChecked && expirationDateEmpty) {
-            alert('Please enter an expiration date for the promotion.');
+        if (setExpirationChecked && expirationDatetimeEmpty) {
+            alert('Please enter an expiration date and time for the promotion.');
             e.preventDefault();
         }
     });
 });
-
-
