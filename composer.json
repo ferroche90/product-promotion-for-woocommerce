@@ -1,0 +1,18 @@
+{
+    "name": "fernandoroche/product-promotion-for-woocommerce",
+    "description": "A WooCommerce plugin to promote a product across your store.",
+    "type": "wordpress-plugin",
+    "require": {
+        "composer/installers": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "FernandoRoche\\ProductPromotion\\": "src/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
+}
